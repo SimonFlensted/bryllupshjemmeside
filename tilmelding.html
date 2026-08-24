@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tilmelding | Schøne Flensted</title>
+  <meta name="description" content="Tilmeld dig Ann-Katrine og Simons bryllup d. 3. juli 2027 på Holckenhavn Slot.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="form-page">
+
+  <nav class="side-nav" aria-label="Sidenavigation">
+    <a href="index.html#start">Start</a>
+    <a href="index.html#tid-og-sted">Tid og sted</a>
+    <a href="index.html#program">Program</a>
+    <a href="index.html#diverse-info">Diverse info</a>
+    <a href="tilmelding.html" class="active">Tilmelding</a>
+  </nav>
+
+  <section class="form-hero">
+    <h1>Vi håber, I vil fejre dagen sammen med os.</h1>
+    <p class="didot">03. jul. 2027, 13.00 &nbsp;·&nbsp; Holckenhavn Slot</p>
+    <p class="rsvp-deadline">Svar senest d. 24. april 2027</p>
+  </section>
+
+  <section class="white-section">
+    <form id="rsvp-form" class="rsvp-form" novalidate>
+
+      <h2 class="form-section-heading">Tilføj dine oplysninger</h2>
+
+      <fieldset>
+        <legend>Kommer du/I? <span class="req">*</span></legend>
+        <label class="choice"><input type="radio" name="attendance" value="Jeg/Vi kommer!" required> Jeg/Vi kommer!</label>
+        <label class="choice"><input type="radio" name="attendance" value="Jeg/Vi kan ikke komme."> Jeg/Vi kan ikke komme.</label>
+      </fieldset>
+
+      <label class="field">
+        <span>Navn på dig og evt. ledsager <span class="req">*</span></span>
+        <input type="text" name="name" required autocomplete="name">
+      </label>
+
+      <label class="field">
+        <span>Telefonnummer <span class="req">*</span></span>
+        <input type="tel" name="phone" required autocomplete="tel">
+      </label>
+
+      <label class="field">
+        <span>E-mail <span class="req">*</span></span>
+        <input type="email" name="email" required autocomplete="email">
+      </label>
+
+      <label class="field">
+        <span>Har du/I allergier eller særlige kosthensyn, vi skal tage højde for?</span>
+        <input type="text" name="allergies">
+      </label>
+
+      <fieldset>
+        <legend>Deltager du/I også til morgenmaden om søndagen? <span class="req">*</span></legend>
+        <label class="choice"><input type="radio" name="breakfast" value="Ja" required> Ja</label>
+        <label class="choice"><input type="radio" name="breakfast" value="Nej"> Nej</label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Ønsker du/I at overnatte (med egenbetaling)? <span class="req">*</span></legend>
+        <label class="choice"><input type="radio" name="stay" value="Ja" required> Ja</label>
+        <label class="choice"><input type="radio" name="stay" value="Nej"> Nej</label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Hvor ønsker du/I at overnatte?</legend>
+        <label class="choice"><input type="radio" name="hotel" value="Begge hoteller er helt fint"> Begge hoteller er helt fint</label>
+        <label class="choice"><input type="radio" name="hotel" value="På Sinatur Hotel Storebælt"> På Sinatur Hotel Storebælt.<br>
+          <small>(Pris pr. enkeltværelse er 1019 kr. / Pris pr. dobbeltværelse er 1219 kr.)</small></label>
+        <label class="choice"><input type="radio" name="hotel" value="På Holckenhavn Slot"> På Holckenhavn Slot.<br>
+          <small>(Prisen svinger mellem 1595 kr. - 1895 kr. pr. dobbeltværelse. Her skal man være okay med at blive booket ind på alle værelserne)</small></label>
+      </fieldset>
+
+      <label class="field">
+        <span>Hvilken sang får dig/jer altid på dansegulvet?</span>
+        <input type="text" name="song">
+      </label>
+
+      <p class="form-error" id="form-error" hidden>Udfyld venligst alle felter markeret med *</p>
+
+      <button type="submit" class="btn-pill">Tilmeld dig</button>
+    </form>
+
+    <div id="rsvp-thanks" class="rsvp-thanks" hidden>
+      <h2 class="section-heading">Tak. Vi ses snart. 💐</h2>
+      <p>Din tilmelding er modtaget.</p>
+      <p><a href="index.html">Tilbage til forsiden</a></p>
+    </div>
+  </section>
+
+  <footer>
+    For spørgsmål, kontakt os på: <a href="tel:+4527299921">27299921</a> (Ann-Katrine) eller <a href="tel:+4528341736">28341736</a> (Simon)
+  </footer>
+
+  <script>
+    // ==== Google Form-integration ====
+    // Udfyldes automatisk, når Google Formularen er oprettet (se README).
+    const GOOGLE_FORM_ACTION = 'REPLACE_WITH_FORMRESPONSE_URL'; // https://docs.google.com/forms/d/e/<ID>/formResponse
+    const ENTRY_IDS = {
+      attendance: 'entry.REPLACE',
+      name:       'entry.REPLACE',
+      phone:      'entry.REPLACE',
+      email:      'entry.REPLACE',
+      allergies:  'entry.REPLACE',
+      breakfast:  'entry.REPLACE',
+      stay:       'entry.REPLACE',
+      hotel:      'entry.REPLACE',
+      song:       'entry.REPLACE',
+    };
+
+    const form = document.getElementById('rsvp-form');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const err = document.getElementById('form-error');
+      if (!form.checkValidity()) { err.hidden = false; form.reportValidity(); return; }
+      err.hidden = true;
+
+      const data = new FormData(form);
+      const body = new URLSearchParams();
+      for (const [key, entry] of Object.entries(ENTRY_IDS)) {
+        const val = data.get(key);
+        if (val) body.append(entry, val);
+      }
+
+      if (GOOGLE_FORM_ACTION.startsWith('https://')) {
+        try {
+          await fetch(GOOGLE_FORM_ACTION, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body });
+        } catch (_) { /* no-cors: svar kan ikke læses, indsendelsen går stadig igennem */ }
+      } else {
+        console.warn('Google Form er ikke konfigureret endnu.');
+      }
+
+      form.hidden = true;
+      document.getElementById('rsvp-thanks').hidden = false;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
