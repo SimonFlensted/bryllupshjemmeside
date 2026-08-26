@@ -16,6 +16,8 @@
  */
 
 const SECRET = 'SKIFT-MIG-TIL-NOGET-HEMMELIGT';
+// ID'et fra arkets URL: https://docs.google.com/spreadsheets/d/<SPREADSHEET_ID>/edit
+const SPREADSHEET_ID = 'SKIFT-MIG';
 const SHEET_NAME = 'Formularsvar 1';
 const EMAIL_HEADER = 'email';
 const UPDATES_HEADER = 'Tilmelding af opdateringer';
@@ -52,7 +54,9 @@ function doPost(e) {
 }
 
 function getSubscriberEmails_() {
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
+  const doc = SpreadsheetApp.openById(SPREADSHEET_ID);
+  // Falder tilbage til første fane, hvis navnet ikke matcher
+  const sheet = doc.getSheetByName(SHEET_NAME) || doc.getSheets()[0];
   const rows = sheet.getDataRange().getValues();
   const headers = rows[0];
   const emailCol = headers.indexOf(EMAIL_HEADER);
